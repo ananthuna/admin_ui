@@ -29,7 +29,6 @@ function PageSelectButtons() {
     }
 
     const nextPage = () => {
-        // console.log(pageNo + ':' + pages.length);
         if (pageNo < pages.length - 1) {
             setSelectionAll(false)
             setSelected(false)
@@ -38,16 +37,9 @@ function PageSelectButtons() {
     }
 
     const deleteSelected = () => {
-        // console.log(selected);
         if (page.length === selected.length) setSelectionAll(false)
         var Array = users
         selected.forEach((id) => Array = [...Array.filter(e => e.id !== id)])
-        // Array.push(...users.filter(e => e.id !== i))
-        // setUsers([...users.filter(e => e.id !== id)])
-        // setSelected([...selected.filter(e => e !== i)])
-        // console.log('end:' + i);
-
-        console.log(Array);
         setUsers([...Array])
         setSelected([])
     }

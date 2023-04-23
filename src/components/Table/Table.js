@@ -1,5 +1,5 @@
 import { Box } from '@mui/system'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import TableHead from './TableHead'
 import Search from './Search'
 import TableRow from './TableRow'
@@ -7,11 +7,8 @@ import PageSelectButtons from './PageSelectButtons'
 import { UserContext } from '../../Context/Context'
 
 function Table() {
-    const { search, users, setSearch } = useContext(UserContext)
+    const { search } = useContext(UserContext)
 
-    useEffect(() => {
-        // search && search.length === 0 && setSearch([])
-    }, [search])
     return (
         <Box sx={{
             display: 'flex',
@@ -23,7 +20,6 @@ function Table() {
                 <Search />
                 <TableHead />
                 {search && search.length !== 0 && <TableRow Users={search} />}
-                {/* {search && search.length === 0 && <TableRow Users={users} />} */}
             </Box>
             <Box sx={{
                 position: 'fixed',

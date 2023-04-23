@@ -10,7 +10,6 @@ function Search() {
     const [value, setValue] = useState('')
 
     const handleSearch = () => {
-        console.log('search');
         const text = value
         const index = text.length
         const array = users.filter(e => e.name.slice(0, index) === text)
@@ -19,7 +18,6 @@ function Search() {
 
     useEffect(() => {
         handleSearch()
-        console.log('search useeffect');
         setValue(value + '')
     }, [users, value])
 

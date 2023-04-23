@@ -38,8 +38,7 @@ function TableHead() {
       }}>
 
         <Box sx={{
-          // bgcolor: 'lightcoral',
-          pl: 1.5
+          pl: 3.4
         }}>
           <Checkbox
             checked={selectionAll}
@@ -51,28 +50,24 @@ function TableHead() {
         </Box>
 
         <Box sx={{
-          // bgcolor: 'lightblue',
           width: '15rem',
           ml: 8
         }}>
           <Typography fontSize='1.2rem'><b>Name</b></Typography>
         </Box>
         <Box sx={{
-          // bgcolor: 'lightgreen',
           width: '15rem',
           ml: 12
         }}>
           <Typography fontSize='1.2rem'><b>Email</b></Typography>
         </Box>
         <Box sx={{
-          // bgcolor: 'yellow',
           width: '15rem',
           ml: 12
         }}>
           <Typography fontSize='1.2rem'><b>Role</b></Typography>
         </Box>
         <Box sx={{
-          // bgcolor: 'lightcoral',
           width: '15rem',
           ml: 12
         }}>

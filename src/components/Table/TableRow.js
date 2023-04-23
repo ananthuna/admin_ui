@@ -3,9 +3,10 @@ import React, { useContext, useEffect } from 'react'
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { UserContext } from '../../Context/Context';
+import Menu from '@mui/material/Menu';
+import EditMenu from './EditMenu';
 
 function TableRow({ Users }) {
-    // const []
     const {
         users,
         setUsers,
@@ -19,6 +20,8 @@ function TableRow({ Users }) {
         setPageNo,
         search
     } = useContext(UserContext)
+    const [open, setOpen] = React.useState(false)
+    const [editUser, setEditUser] = React.useState()
 
     const pagination = (array) => {
         const length = array.length
@@ -86,25 +89,30 @@ function TableRow({ Users }) {
         }
         // console.log(selected);
     }
+
     return (
-        <>
+        <Box>
             {page && page.length > 0 && page.map((user, index) =>
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     mt: -1.1,
-                }} key={user.id}>
+                }} key={user.id}
+
+                >
                     <Box bgcolor={selected.length > 0 && selected.includes(user.id) && 'lightgrey'}>
                         <Box sx={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'flex-start',
                             height: '1.8rem',
-
+                            // mb: 1,
                             pt: 1,
-                            pl: 1
-                        }}>
+                            pl: 1,
+                        }}
+
+                        >
                             <Box sx={{
                                 // bgcolor: 'lightcoral',
                                 ml: 1.7
@@ -149,7 +157,10 @@ function TableRow({ Users }) {
                                 gap: 3
                             }}>
                                 <IconButton>
-                                    <EditNoteOutlinedIcon />
+                                    <EditNoteOutlinedIcon onClick={() => {
+                                        setEditUser(user)
+                                        setOpen(true)
+                                    }} />
                                 </IconButton>
                                 <IconButton onClick={() => handleDelete(user.id)}>
                                     <DeleteOutlineIcon color="error" />
@@ -157,12 +168,41 @@ function TableRow({ Users }) {
                             </Box>
                         </Box>
 
+                        {/* <Box sx={{
+                            position:'absolute',
+                            top:'5rem'
+                        }}> */}
+                            <hr />
+                        {/* </Box> */}
+
                         {/* <Box sx={{pt:}}> */}
-                        <hr />
                         {/* </Box> */}
                     </Box>
-                </Box>)}
-        </>
+                    {/* edit user details menu */}
+                    < Menu
+                        // sx={{boxShadow:1}}
+                        id="menu-appbar"
+                        anchorOrigin={{
+                            vertical: 100,
+                            horizontal: 500,
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        open={open}
+                        onClose={e => setOpen(false)}
+                    >
+                        {editUser && <EditMenu setOpen={setOpen} open={open} user={editUser} />}
+
+                    </Menu>
+                </Box>
+            )
+            }
+
+
+        </Box >
     )
 }
 
