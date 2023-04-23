@@ -4,7 +4,8 @@ import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { UserContext } from '../../Context/Context';
 
-function TableRow() {
+function TableRow({ Users }) {
+    // const []
     const {
         users,
         setUsers,
@@ -15,7 +16,8 @@ function TableRow() {
         setSelected,
         page,
         setPage,
-        setPageNo
+        setPageNo,
+        search
     } = useContext(UserContext)
 
     const pagination = (array) => {
@@ -32,8 +34,8 @@ function TableRow() {
         let endIndex = 10
         const Array = []
         while (noOfPages > 0) {
-            let array = users.slice(startIndex, endIndex)
-            Array.push(array)
+            let arr = array.slice(startIndex, endIndex)
+            Array.push(arr)
             startIndex += 10
             endIndex += 10
             noOfPages -= 1
@@ -53,10 +55,10 @@ function TableRow() {
     }
 
     useEffect(() => {
-        users && pagination(users)
+        search && pagination(search)
         pageSelection(pageNo)
         // selected && console.log(selected);
-    }, [users, pageNo, pages])
+    }, [search, pageNo, pages])
 
     useEffect(() => {
         // console.log('users');
@@ -86,7 +88,7 @@ function TableRow() {
     }
     return (
         <>
-            {page && page.map((user, index) =>
+            {page && page.length > 0 && page.map((user, index) =>
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'center',

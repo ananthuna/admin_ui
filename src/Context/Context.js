@@ -9,9 +9,12 @@ export default function Context({ children }) {
     const [selected, setSelected] = useState([])
     const [page, setPage] = useState([])
     const [selectionAll, setSelectionAll] = useState(false)
+    const [search, setSearch] = useState([])
 
     return (
         <UserContext.Provider value={{
+            setSearch,
+            search,
             selectionAll,
             setSelectionAll,
             page,
