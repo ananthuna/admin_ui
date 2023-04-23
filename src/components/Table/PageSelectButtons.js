@@ -11,8 +11,12 @@ function PageSelectButtons() {
         setPageNo,
         pages,
         pageNo,
+        page,
         setSelectionAll,
-        setSelected
+        setSelected,
+        selected,
+        setUsers,
+        users
     } = useContext(UserContext)
 
 
@@ -25,23 +29,42 @@ function PageSelectButtons() {
     }
 
     const nextPage = () => {
-        console.log(pageNo + ':' + pages.length);
+        // console.log(pageNo + ':' + pages.length);
         if (pageNo < pages.length - 1) {
             setSelectionAll(false)
             setSelected(false)
             setPageNo(pageNo + 1)
         }
     }
+
+    const deleteSelected = () => {
+        // console.log(selected);
+        if (page.length === selected.length) setSelectionAll(false)
+        var Array = users
+        selected.forEach((id) => Array = [...Array.filter(e => e.id !== id)])
+        // Array.push(...users.filter(e => e.id !== i))
+        // setUsers([...users.filter(e => e.id !== id)])
+        // setSelected([...selected.filter(e => e !== i)])
+        // console.log('end:' + i);
+
+        console.log(Array);
+        setUsers([...Array])
+        setSelected([])
+    }
     return (
         <Box sx={{
             display: 'flex',
             ml: 4
         }}>
-            <Button color='error' variant="contained">Delete selected</Button>
+            <Button
+                color='error'
+                variant="contained"
+                onClick={deleteSelected}
+            >Delete selected</Button>
             <Box sx={{
                 display: 'flex',
                 gap: 5,
-                ml: '20rem'
+                ml: '10rem'
             }}>
 
                 {/* first page selection  */}

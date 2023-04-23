@@ -15,10 +15,8 @@ function TableRow() {
         setSelected,
         page,
         setPage,
+        setPageNo
     } = useContext(UserContext)
-
-    // const [page, setPage] = useState([])
-    // const [selected, setSelected] = useState([])
 
     const pagination = (array) => {
         const length = array.length
@@ -45,10 +43,13 @@ function TableRow() {
 
     const pageSelection = (pageNo) => {
         var array = []
+        if (pageNo && pageNo >= pages.length) {
+            setPageNo(pageNo - 1)
+        }
         if (pages && pages.length > 0) {
             array = pages[pageNo]
         }
-        setPage([...array])
+        array && array.length > 0 && setPage([...array])
     }
 
     useEffect(() => {
@@ -58,7 +59,10 @@ function TableRow() {
     }, [users, pageNo, pages])
 
     useEffect(() => {
-        console.log(selected);
+        // console.log('users');
+        // console.log(users);
+        // console.log('pages');
+        // console.log(pages);
     }, [selected])
 
     //remove user from the list
@@ -67,13 +71,18 @@ function TableRow() {
     }
 
     const handleSelect = (id) => {
-
-        let check = selected.includes(id)
+        let check
+        if (selected && selected.length > 0) {
+            check = selected.includes(id)
+        } else {
+            check = false
+        }
         if (!check) {
-            setSelected([...selected, id])
+            selected.length > 0 ? setSelected([...selected, id]) : setSelected([id])
         } else {
             setSelected([...selected.filter(e => e !== id)])
         }
+        // console.log(selected);
     }
     return (
         <>
