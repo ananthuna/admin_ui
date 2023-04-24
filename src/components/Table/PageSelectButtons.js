@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
@@ -18,6 +18,7 @@ function PageSelectButtons() {
         setUsers,
         users
     } = useContext(UserContext)
+    const buttonRef = useRef(null)
 
 
     const previousPage = () => {
@@ -43,9 +44,15 @@ function PageSelectButtons() {
         setUsers([...Array])
         setSelected([])
     }
+
+    useEffect(() => {
+        buttonRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [pageNo])
+
     return (
         <Box sx={{
             display: 'flex',
+
             ml: 4
         }}>
             <Button
@@ -55,77 +62,42 @@ function PageSelectButtons() {
             >Delete selected</Button>
             <Box sx={{
                 display: 'flex',
-                gap: 5,
+                gap: 4,
                 ml: '10rem'
             }}>
 
                 {/* first page selection  */}
-                <IconButton sx={{
-                    bgcolor: 'blue',
-                    "&:hover": {
-                        bgcolor: 'blue'
-                    },
-                }}
-                    onClick={() => {
-                        setSelectionAll(false)
-                        setSelected(false)
-                        setPageNo(0)
-                    }}
-                >
-                    <KeyboardDoubleArrowLeftOutlinedIcon
-                        sx={{
-                            color: 'white'
-                        }} />
-                </IconButton>
-
-                {/* previous page selection */}
-                <IconButton sx={{
-                    bgcolor: 'blue',
-                    "&:hover": {
-                        bgcolor: 'blue'
-                    },
-                }}
-                    onClick={previousPage}
-                >
-                    <KeyboardArrowLeftOutlinedIcon
-                        sx={{
-                            color: 'white'
-                        }} />
-                </IconButton>
-
-
-
-
-                {pages && pages.map((page, index) =>
-                    <Box key={index}>
-
-
-                        {/* page selection button */}
-                        {pageNo === index ? (
-                            <IconButton
-                                component="label"
-                                sx={{
-                                    border: 1,
-                                    borderColor: 'blue',
-
-                                }}
-                                onClick={() => {
-                                    setSelectionAll(false)
-                                    setSelected(false)
-                                    setPageNo(index)
-                                }}
-                            >
-                                <Avatar sx={{
-                                    width: 24,
-                                    height: 24,
-                                    bgcolor: 'transparent',
-                                    color: 'blue'
-                                }} >{index + 1}</Avatar>
-
-                            </IconButton>
-                        ) : (
+                {pageNo === 0 ?
+                    (
+                        <>
                             <IconButton sx={{
-                                // border: 1,
+                                bgcolor: 'lightgrey',
+                                "&:hover": {
+                                    bgcolor: 'lightgrey'
+                                },
+                            }}
+                            >
+                                <KeyboardDoubleArrowLeftOutlinedIcon
+                                    sx={{
+                                        color: 'white'
+                                    }} />
+                            </IconButton>
+                            {/* previous page selection */}
+                            <IconButton sx={{
+                                bgcolor: 'lightgrey',
+                                "&:hover": {
+                                    bgcolor: 'lightgrey'
+                                },
+                            }}
+                            >
+                                <KeyboardArrowLeftOutlinedIcon
+                                    sx={{
+                                        color: 'white'
+                                    }} />
+                            </IconButton></>
+                    ) : (
+                        <>
+                            <IconButton sx={{
                                 bgcolor: 'blue',
                                 "&:hover": {
                                     bgcolor: 'blue'
@@ -134,53 +106,164 @@ function PageSelectButtons() {
                                 onClick={() => {
                                     setSelectionAll(false)
                                     setSelected(false)
-                                    setPageNo(index)
+                                    setPageNo(0)
                                 }}
                             >
-                                <Avatar sx={{
-                                    width: 24,
-                                    height: 24,
-                                    bgcolor: 'transparent',
-                                    color: 'white'
-                                }} >{index + 1}</Avatar>
-
+                                <KeyboardDoubleArrowLeftOutlinedIcon
+                                    sx={{
+                                        color: 'white'
+                                    }} />
                             </IconButton>
-                        )}
-                    </Box>
-                )}
+                            {/* previous page selection */}
+                            <IconButton sx={{
+                                bgcolor: 'blue',
+                                "&:hover": {
+                                    bgcolor: 'blue'
+                                },
+                            }}
+                                onClick={previousPage}
+                            >
+                                <KeyboardArrowLeftOutlinedIcon
+                                    sx={{
+                                        color: 'white'
+                                    }} />
+                            </IconButton></>
+                    )}
 
-                {/* next page selection btn */}
-                <IconButton sx={{
-                    bgcolor: 'blue',
-                    "&:hover": {
-                        bgcolor: 'blue'
-                    },
-                }}
-                    onClick={nextPage}
-                >
-                    <KeyboardArrowRightOutlinedIcon sx={{
-                        color: 'white'
-                    }} />
-                </IconButton>
 
-                {/* last page selection btn */}
-                <IconButton sx={{
-                    bgcolor: 'blue',
-                    "&:hover": {
-                        bgcolor: 'blue'
-                    },
-                }}
-                    onClick={() => {
-                        setSelectionAll(false)
-                        setSelected(false)
-                        setPageNo(pages.length - 1)
-                    }}
-                >
-                    <KeyboardDoubleArrowRightOutlinedIcon
-                        sx={{
-                            color: 'white'
-                        }} />
-                </IconButton>
+
+
+
+                <Box sx={{
+                    display: 'flex',
+                    gap: 4,
+                    maxWidth: '16.2rem',
+                    overflow: 'hidden',
+                }}>
+
+                    {pages && pages.map((page, index) =>
+                        <Box key={index}>
+
+
+                            {/* page selection button */}
+                            {pageNo === index ? (
+                                <IconButton
+                                    component="label"
+                                    sx={{
+                                        border: 1,
+                                        borderColor: 'blue',
+
+                                    }}
+                                    onClick={() => {
+                                        setSelectionAll(false)
+                                        setSelected(false)
+                                        setPageNo(index)
+                                    }}
+                                    ref={buttonRef}
+                                >
+                                    <Avatar sx={{
+                                        width: 24,
+                                        height: 24,
+                                        bgcolor: 'transparent',
+                                        color: 'blue'
+                                    }} >{index + 1}</Avatar>
+
+                                </IconButton>
+                            ) : (
+                                <IconButton sx={{
+                                    // border: 1,
+                                    bgcolor: 'blue',
+                                    "&:hover": {
+                                        bgcolor: 'blue'
+                                    },
+                                }}
+                                    onClick={() => {
+                                        setSelectionAll(false)
+                                        setSelected(false)
+                                        setPageNo(index)
+                                    }}
+                                >
+                                    <Avatar sx={{
+                                        width: 24,
+                                        height: 24,
+                                        bgcolor: 'transparent',
+                                        color: 'white'
+                                    }} >{index + 1}</Avatar>
+
+                                </IconButton>
+                            )}
+                        </Box>
+                    )}
+                </Box>
+
+
+
+
+                {pages.length - 1 === pageNo ?
+                    (
+                        <>
+                            {/* next page selection btn */}
+                            < IconButton sx={{
+                                bgcolor: 'lightgrey',
+                                "&:hover": {
+                                    bgcolor: 'lightgrey'
+                                },
+                            }}
+                            >
+                                <KeyboardArrowRightOutlinedIcon sx={{
+                                    color: 'white'
+                                }} />
+                            </IconButton>
+                            <IconButton sx={{
+                                bgcolor: 'lightgrey',
+                                "&:hover": {
+                                    bgcolor: 'lightgrey'
+                                },
+                            }}
+                            >
+                                <KeyboardDoubleArrowRightOutlinedIcon
+                                    sx={{
+                                        color: 'white'
+                                    }} />
+                            </IconButton>
+                        </>
+                    ) : (
+                        <>
+                            {/* next page selection btn */}
+                            < IconButton sx={{
+                                bgcolor: 'blue',
+                                "&:hover": {
+                                    bgcolor: 'blue'
+                                },
+                            }}
+                                onClick={nextPage}
+                            >
+                                <KeyboardArrowRightOutlinedIcon sx={{
+                                    color: 'white'
+                                }} />
+                            </IconButton>
+
+                            <IconButton sx={{
+                                bgcolor: 'blue',
+                                "&:hover": {
+                                    bgcolor: 'blue'
+                                },
+                            }}
+                                onClick={() => {
+                                    setSelectionAll(false)
+                                    setSelected(false)
+                                    setPageNo(pages.length - 1)
+                                }}
+                            >
+                                <KeyboardDoubleArrowRightOutlinedIcon
+                                    sx={{
+                                        color: 'white'
+                                    }} />
+                            </IconButton>
+                        </>
+
+                    )}
+
 
 
             </Box>

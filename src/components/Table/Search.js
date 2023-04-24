@@ -12,8 +12,13 @@ function Search() {
     const handleSearch = () => {
         const text = value
         const index = text.length
-        const array = users.filter(e => e.name.slice(0, index) === text)
-        setSearch([...array])
+        const nameArray = users.filter(e => e.name.slice(0, index) === text)
+        const emailArray = users.filter(e => e.email.slice(0, index) === text)
+        const roleArray = users.filter(e => e.role.slice(0, index) === text)
+        if (nameArray && nameArray.length > 0) return setSearch([...nameArray])
+        if (emailArray && emailArray.length > 0) return setSearch([...emailArray])
+        if (roleArray && roleArray.length > 0) return setSearch([...roleArray])
+
     }
 
     useEffect(() => {

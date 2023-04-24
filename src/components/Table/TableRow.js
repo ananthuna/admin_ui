@@ -60,15 +60,8 @@ function TableRow({ Users }) {
     useEffect(() => {
         search && pagination(search)
         pageSelection(pageNo)
-        // selected && console.log(selected);
-    }, [search, pageNo, pages])
+    })
 
-    useEffect(() => {
-        // console.log('users');
-        // console.log(users);
-        // console.log('pages');
-        // console.log(pages);
-    }, [selected])
 
     //remove user from the list
     const handleDelete = (id) => {
@@ -87,34 +80,39 @@ function TableRow({ Users }) {
         } else {
             setSelected([...selected.filter(e => e !== id)])
         }
-        // console.log(selected);
     }
 
     return (
-        <Box>
+        <Box sx={{
+            mt: -1,
+            width: '100%'
+        }}>
             {page && page.length > 0 && page.map((user, index) =>
                 <Box sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    mt: -1.1,
+                    width: '100%'
                 }} key={user.id}
 
                 >
-                    <Box bgcolor={selected.length > 0 && selected.includes(user.id) && 'lightgrey'}>
+                    <Box
+                        bgcolor={selected.length > 0 && selected.includes(user.id) && '#E6E6E6'}
+                        sx={{
+                            borderBottom: 1,
+                            width: '100%'
+                        }}
+                    >
                         <Box sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'flex-start',
-                            height: '1.8rem',
-                            // mb: 1,
-                            pt: 1,
+                            justifyContent: 'center',
+                            height: '2.8rem',
                             pl: 1,
                         }}
 
                         >
                             <Box sx={{
-                                // bgcolor: 'lightcoral',
                                 ml: 1.7
                             }}>
                                 <Checkbox
@@ -127,7 +125,6 @@ function TableRow({ Users }) {
                             </Box>
 
                             <Box sx={{
-                                // bgcolor: 'lightblue',
                                 width: '15rem',
                                 ml: 8
                             }}>
@@ -135,7 +132,6 @@ function TableRow({ Users }) {
                             </Box>
 
                             <Box sx={{
-                                // bgcolor: 'lightgreen',
                                 width: '15rem',
                                 ml: 12
                             }}>
@@ -143,7 +139,6 @@ function TableRow({ Users }) {
                             </Box>
 
                             <Box sx={{
-                                // bgcolor: 'yellow',
                                 width: '15rem',
                                 ml: 12
                             }}>
@@ -167,17 +162,8 @@ function TableRow({ Users }) {
                                 </IconButton>
                             </Box>
                         </Box>
-
-                        {/* <Box sx={{
-                            position:'absolute',
-                            top:'5rem'
-                        }}> */}
-                            <hr />
-                        {/* </Box> */}
-
-                        {/* <Box sx={{pt:}}> */}
-                        {/* </Box> */}
                     </Box>
+
                     {/* edit user details menu */}
                     < Menu
                         // sx={{boxShadow:1}}
